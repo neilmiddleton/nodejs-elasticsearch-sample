@@ -1,19 +1,14 @@
 .row
     .span12
         .hero-unit
-          h1 Heroku Sample Node.js Application.
+          h1 Heroku + Node.js
           br
           p This example illustrates basic search features of Heroku & ElasticSearch as service.
 
-          p Sample application is using
-            a(href='https://github.com/phillro/node-elasticsearch-client')= ' elasticsearchclient '
-            = 'Node.js ElasticSearch client.'
-
-          p To create initial index and sample data click
-            a(href='/index')= ' Create Sample Index&Data! '
-            = '(2 sample documents will be created.)'
-
-          p Type "*" or "cloud" to search box and hit enter for sample search results.
+          p Type “*” or “cloud” to search box and hit enter for sample search results.
 
         if result
           p= result
+        else
+          p To create initial index and sample data click
+              a(href='/index')= ' Create Sample Index & Data! '
