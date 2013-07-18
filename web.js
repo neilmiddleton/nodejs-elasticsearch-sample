@@ -45,38 +45,7 @@ app.get('/', function (req, res) {
     res.render('index', {"result":""})
 });
 
-app.get('/index', function (req, res) {
-
-    elasticSearchClient.createIndex(_index, {}, {}).on('data',
-        function (data) {
-
-            //Bulk index example
-            var commands = []
-            commands.push({ "index":{ "_index":_index, "_type":_type, "_id":"1"} });
-            commands.push({'name':'Reliability', 'text':'Reliability is improved if multiple ' +
-                'redundant sites are used, which makes well-designed cloud computing suitable for business continuity and disaster recovery. '});
-
-            commands.push({ "index":{ "_index":_index, "_type":_type, "_id":"2"} });
-            commands.push({'name':'Virtualization', 'text':'Virtualization technology allows servers and storage devices to be shared and utilization be increased. ' +
-                'Applications can be easily migrated from one physical server to another. '});
-
-            elasticSearchClient.bulk(commands, {})
-                .on('data', function (data) {
-                    res.render('index', {result:'Indexing Completed!'});
-                })
-                .on('error', function (error) {
-                    res.render('index', {result:error});
-                })
-                .exec();
-
-        }).on('error', function (error) {
-            res.render('index', {result:error});
-        }).exec();
-
-})
-
 app.get('/search', function (req, res) {
-
     var qryObj = {
         "query":{
             "query_string":{
@@ -84,7 +53,6 @@ app.get('/search', function (req, res) {
             }
         }
     };
-
     elasticSearchClient.search(_index, _type, qryObj)
         .on('data',
         function (data) {
@@ -95,9 +63,45 @@ app.get('/search', function (req, res) {
         .exec()
 });
 
-app.get('/about', function (req, res) {
-    res.render('about');
-});
+
+app.get('/index', function (req, res) {
+    elasticSearchClient.createIndex(_index, {}, {}).on('data',
+        function (data) {
+            var commands = []
+            commands.push({ "index":{ "_index":_index, "_type":_type, "_id":"1"} });
+            commands.push({'name':'Reliability',
+                'text':'Reliability is improved if multiple ' +
+                'redundant sites are used, which makes well-designed cloud ' +
+                'computing suitable for business continuity and disaster recovery. '});
+
+            commands.push({ "index":{ "_index":_index, "_type":_type, "_id":"2"} });
+            commands.push({'name':'Virtualization',
+                'text':'Virtualization technology allows servers and storage ' +
+                'devices to be shared and utilization be increased. ' +
+                'Applications can be easily migrated from one physical server to another. '});
+
+            commands.push({ "index":{ "_index":_index, "_type":_type, "_id":"3"} });
+            commands.push({'name':'Platform as a service',
+                'text':'Platform as a service (PaaS) is a category of cloud ' +
+                'computing services that provides a computing platform and a solution stack as a service'});
+
+            commands.push({ "index":{ "_index":_index, "_type":_type, "_id":"4"} });
+            commands.push({'name':'Infrastructure as a service',
+                'text':'In the most basic cloud-service model, providers of ' +
+                'IaaS offer computers - physical or (more often) virtual machines - and other resources.'});
+
+            elasticSearchClient.bulk(commands, {})
+                .on('data', function (data) {
+                    res.render('index', {result:'Indexing Completed!'});
+                })
+                .on('error', function (error) {
+                    res.render('index', {result:error});
+                })
+                .exec();
+        }).on('error', function (error) {
+            res.render('index', {result:error});
+        }).exec();
+})
 
 var port = process.env.PORT || 3000;
 

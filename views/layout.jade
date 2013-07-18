@@ -8,7 +8,7 @@ html
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          a.brand(href='/')= 'Herkoku Node.js Sample'
+          a.brand(href='/')= 'Herkoku Node.js'
           .nav-collapse
             ul.nav
                 li
@@ -25,7 +25,10 @@ html
 
         hr
         footer.footer
-            p Heroku
+            p
+            a(href='http://www.heroku.com')= 'Heroku'
+            = " | "
+            a(href='https://github.com/neilmiddleton/nodejs-elasticsearch-sample')= 'source'
 
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
