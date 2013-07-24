@@ -4,6 +4,10 @@ var express = require('express'),
 
 var app = module.exports = express.createServer();
 
+if (process.env.BONSAI_URL == 'undefined') {
+    throw new Exception "ElasticSearch server is undefined";
+}
+
 var connectionString = url.parse(process.env.BONSAI_URL);
 
 var serverOptions = {
