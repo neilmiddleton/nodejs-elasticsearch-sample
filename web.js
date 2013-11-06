@@ -1,6 +1,7 @@
 var express = require('express'),
     ElasticSearchClient = require('elasticsearchclient'),
-    url = require('url');
+    url = require('url'),
+    newrelic = require('newrelic');
 
 var app = module.exports = express.createServer();
 
