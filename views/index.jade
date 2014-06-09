@@ -8,7 +8,10 @@
           p Type “*” or “cloud” to search box and hit enter for sample search results.
 
         if result
-          p= result
+          if (result == "Error: connect ECONNREFUSED")
+            p.alert Elasticsearch server is either not running or not configured
+          else
+            p= result
         else
           p To create initial index and sample data click
               a(href='/index')= ' Create Sample Index & Data! '
